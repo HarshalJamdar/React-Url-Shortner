@@ -80,3 +80,7 @@ button:hover {
   gap: 10px;
   margin-top: 10px;
 }
+
+.Toastify__close-button {
+  width: 20px !important;
+}
