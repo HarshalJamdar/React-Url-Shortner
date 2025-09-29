@@ -21,10 +21,9 @@ function ShortenerPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ longUrl }),
       });
-
-      if (!res.ok) throw new Error('Failed to shorten URL');
       const data = await res.json();
-      setShortUrl(`${process.env.REACT_APP_BACKEND_API_BASE}/${data?.data?.urlCode}`);
+      if (!res.ok) setError(data.message || 'Failed to shorten URL');
+      else setShortUrl(`${process.env.REACT_APP_BACKEND_API_BASE}/${data?.data?.urlCode}`);
     } catch (err) {
       setError(err.message || 'Something went wrong');
     } finally {
@@ -52,7 +51,14 @@ function ShortenerPage() {
 
   return  (
     <div className='container'>
-      <h1 className='title'>🔗 URL Shortener</h1>
+      <h1 className='title'>
+        <img 
+          src='https://m.media-amazon.com/images/I/31Aq0p5SI-L.png' 
+          alt='Logo' 
+          style={{ width: '40px', height: '40px', marginRight: '10px', verticalAlign: 'middle' }}
+        />
+         URL Shortener
+      </h1>
 
       <form className='form' onSubmit={handleSubmit}>
         <input
